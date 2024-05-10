@@ -1,0 +1,91 @@
+
+<p><strong>Assignment:</strong>&nbsp;<br />
+Install and configure an HTTP server.</p>
+
+<p><strong>Requirements:</strong>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<ul>
+<li>Configure the HTTP server to handle requests for multiple DNS
+names.</li>
+
+<li>Configure the HTTP server to use a server-side scripting
+language.</li>
+
+<li>Configure the HTTP server to use HTTPS.</li>
+
+<li>Install and configure a web-based mail system.</li>
+</ul>
+
+
+<p><strong>Configure the HTTP server to handle requests for multiple
+DNS domains:</strong>&nbsp;</p>
+
+<ul>
+<li>Configure virtual hosts for at least two virtual hosts.</li>
+
+<li>Create directories for the documents inside of
+<code>/var/www</code>, named after the domain name. For example,
+<code>/var/www/yourdomain</code> for your domain.</li>
+
+<li>Make sure to add any necessary DNS entrys.</li>
+
+<li>Create a unique web site for each of the virtual hosts.</li>
+</ul>
+
+<p><strong>Configure the HTTP server to have a HTTPS
+site:</strong>&nbsp;</p>
+
+<ul>
+<li>Configure a virtual host that uses HTTPS.</li>
+
+<li>Create a distinct directory for the documents of this site.</li>
+
+<li>Make sure to add any necessary DNS entrys.</li>
+
+<li>Create a unique web site for this virtual host.</li>
+</ul>
+
+<p><strong>Install and configure a web-based mail
+system:</strong>&nbsp;</p>
+
+<ul>
+<li>Download and install the SquirrelMail web application from
+<code>www.squirrelmail.org</code>.</li>
+
+<li>This should be installed on your https site.</li>
+
+<li>Use your MTA and IMAPS servers to facilitate the mail
+application.</li>
+
+<li>Note that this will require the installation of PHP.</li>
+</ul>
+
+<p><strong>Pass-off Procedure:</strong>&nbsp;</p>
+
+<ul>
+<li>Use the CIT submission system.</li>
+
+<li>Submit a text file named <code>web_info.txt</code>. This file must
+be a plain text file, with the following format: 
+
+<pre>
+ip:    ip address of web server<br />
+site1: fully qualified domain name of first web site<br />
+site2: fully qualified domain name of second web site<br />
+site3: fully qualified domain name of secure web site
+</pre>
+
+For example, my file would look like this: 
+
+<pre>
+ip:    144.38.212.55<br />
+site1: site1.horgoth.com<br />
+site2: site2.horgoth.com<br />
+site3: site1.horgoth.com
+</pre>
+
+Note that my secure site uses the same name as my first site. This is
+not required.</li>
+</ul>

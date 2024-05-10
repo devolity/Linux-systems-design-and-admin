@@ -1,0 +1,100 @@
+
+<pre>
+Installation Packages<br />
+-----------------------------<br />
+1- install package: ssl-cert<br />
+<br />
+<br />
+Commands of Interest<br />
+-------------------------------<br />
+1- make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/site1.horgoth.com.crt<br />
+                                : make an ssl certificate<br />
+2- a2ensite site.file.name      : enable a site file<br />
+3- a2enmod module name          : enable an available module<br />
+<br />
+<br />
+Files and Directories<br />
+---------------------<br />
+1- /etc/apache2/ssl            : Directory for ssl certificates<br />
+   /etc/apache2/mods-available/: Directory of available modules<br />
+   /etc/apache2/mods-enabled/  : Directory of modules that are in use<br />
+   /etc/apache2/sites-available/: Directory of available virtual hosts<br />
+   /etc/apache2/sites-enabled/  : Directory of virtual hosts that are used<br />
+  <br />
+2- /var/log/apache2            : log file directory<br />
+   /var/log/apache2/error.log  : start/stop/error messages<br />
+   /var/log/apache2/access.log : log of HTTP requests<br />
+<br />
+<br />
+Specific Configuration Tasks<br />
+-----------------------------------------------------------------------<br />
+  <br />
+  <br />
+To set up an https web site<br />
+-----------------------------------------------------------------------<br />
+0- sudo bash<br />
+1- update apache configuration<br />
+   a- edit /etc/apache2/ports.conf.  Add line with "Listen 443"<br />
+   b- a2enmod ssl<br />
+<br />
+2- Create the certificate<br />
+   apt-get install ssl-cert<br />
+   mkdir /etc/apache2/ssl<br />
+   make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/site1.horgoth.com.crt<br />
+                                                                 ^^^^^^^^^^^^^^^^^<br />
+                              your site name here<br />
+3- cd /etc/apache2/sites-available<br />
+<br />
+4a- edit default,<br />
+      change "NameVirtualHost *" to  "NameVirtualHost *:80"<br />
+      change "&lt;VirtualHost *&gt;" to  "&lt;VirtualHost *:80&gt;"<br />
+4b- edit each site.file<br />
+      change "&lt;VirtualHost *&gt;" to  "&lt;VirtualHost *:80&gt;"<br />
+<br />
+5- edit a new.site.file for the https site.<br />
+This is the site1.horgoth.com https site file<br />
+========================================================================<br />
+&lt;VirtualHost 144.38.212.56:443&gt;<br />
+        ServerName  site1.horgoth.com<br />
+        ServerAlias www.site1.horgoth.com<br />
+        ServerAdmin webmaster@horgoth.com<br />
+<br />
+        DocumentRoot /var/www/secure-site1.horgoth.com<br />
+        &lt;Directory /&gt;<br />
+                Options FollowSymLinks<br />
+                AllowOverride None<br />
+        &lt;/Directory&gt;<br />
+        &lt;Directory /var/www/secure-site1.horgoth.com/&gt;<br />
+                Options Indexes FollowSymLinks MultiViews<br />
+                AllowOverride None<br />
+                Order allow,deny<br />
+                allow from all<br />
+        &lt;/Directory&gt;<br />
+<br />
+        SSLEngine On<br />
+        SSLCertificateFile /etc/apache2/ssl/site1.horgoth.com.crt<br />
+<br />
+        ErrorLog /var/log/apache2/error.log<br />
+<br />
+        # Possible values include: debug, info, notice, warn, error, crit,<br />
+        # alert, emerg.<br />
+        LogLevel warn<br />
+<br />
+        CustomLog /var/log/apache2/access.log combined<br />
+        ServerSignature On<br />
+&lt;/VirtualHost&gt;<br />
+========================================================================<br />
+<br />
+6- Enable the new site with<br />
+   a2ensite site1.horgoth.com.443<br />
+<br />
+7- Make directory for site<br />
+   mkdir /var/www/secure-site1.horgoth.com<br />
+<br />
+8- /etc/init.d/apache2 restart<br />
+<br />
+9- Set up content in DocumentRoot<br />
+<br />
+10- Browse site with<br />
+   https://site1.horgoth.com/document
+</pre>

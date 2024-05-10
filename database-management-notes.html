@@ -1,0 +1,106 @@
+
+<pre>
+Notes for ubuntu feisty<br />
+-----------------------<br />
+<br />
+Installation procedure<br />
+----------------------<br />
+- Install the server and client packages<br />
+- Set the mysql root user password<br />
+<br />
+<br />
+Per database procedure<br />
+----------------------<br />
+- Create a database<br />
+- Grant access to the database for user<br />
+<br />
+<br />
+<br />
+==============================================================<br />
+<br />
+<br />
+Packages to install<br />
+-------------------<br />
+- mysql-server<br />
+- mysql-client<br />
+<br />
+<br />
+Files and Directories<br />
+---------------------<br />
+1- /var/lib/mysql/   : data directory<br />
+2- /var/log/mysql/   : log files<br />
+   /var/log/mysql.log<br />
+   /var/log/mysql.err<br />
+<br />
+<br />
+Commands of Interest<br />
+--------------------<br />
+1- /etc/init.d/mysqld stop|start|restart  : rarely used to restart server<br />
+2- mysql -u user -p databasename          : to connect to the server for<br />
+                                          : SQL session<br />
+<br />
+<br />
+To leave MySQL client<br />
+-----------------------<br />
+1- exit<br />
+<br />
+<br />
+To view MySQL accounts<br />
+-----------------------<br />
+1- $ mysql -u root -p<br />
+2- use mysql<br />
+3- SELECT host, user, password FROM user;<br />
+<br />
+<br />
+To set the MySQL root account password<br />
+--------------------------------------<br />
+1- mysql -u root<br />
+2- use mysql<br />
+3- UPDATE user SET password = password('/b{2}|[^b]{2}/') WHERE user = 'root';<br />
+4- FLUSH PRIVILEGES;<br />
+<br />
+<br />
+To delete the account that is authorized to connect from the network interface<br />
+------------------------------------------------------------------------------<br />
+1- mysql -u root<br />
+2- use mysql<br />
+3- DELETE FROM user WHERE host='yourhostname' AND user='root';<br />
+4- FLUSH PRIVILEGES;<br />
+<br />
+<br />
+To create a database<br />
+--------------------<br />
+1- $ mysql -u root -p<br />
+2- CREATE DATABASE my_db_name;<br />
+<br />
+<br />
+To create a user, with access to all tables of a database<br />
+---------------------------------------------------------<br />
+1- $ mysql -u root -p<br />
+2- GRANT ALL PRIVILEGES ON my_db_name.*<br />
+   TO my_uname@localhost IDENTIFIED BY 'my_password';<br />
+  <br />
+To grant access to a new database for an existing user<br />
+---------------------------------------------------------<br />
+1- $ mysql -u root -p<br />
+2- GRANT ALL PRIVILEGES ON my_db_name_2.*<br />
+   TO my_uname@localhost;<br />
+  <br />
+To remove access to a database for an existing user<br />
+---------------------------------------------------------<br />
+1- $ mysql -u root -p<br />
+2- REVOKE ALL PRIVILEGES ON my_db_name_2.*<br />
+   FROM my_uname@localhost;<br />
+  <br />
+To delete an existing user<br />
+---------------------------------------------------------<br />
+1- $ mysql -u root -p<br />
+2- DROP user my_uname@localhost;<br />
+   Note that all database privileges for the user must be<br />
+   revoked prior to this statement.<br />
+<br />
+To allow network access<br />
+---------------------------------------------------------<br />
+1- $ edit /etc/mysql/my.cnf<br />
+2- comment out the bind-address field.
+</pre>

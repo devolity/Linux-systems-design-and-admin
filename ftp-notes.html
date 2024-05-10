@@ -1,0 +1,90 @@
+
+<pre>
+Installation Packages<br />
+-----------------------------<br />
+1- install package: proftpd<br />
+ <br />
+Commands of Interest<br />
+-------------------------------<br />
+1- /etc/init.d/inetd restart<br />
+2- /etc/init.d/proftpd restart<br />
+<br />
+Files and Directories<br />
+---------------------<br />
+1- /etc/proftpd.conf    ftp server configuration file<br />
+2- /etc/inetd.conf      "internet super server" configuration file<br />
+3- /home/ftp            anonymous ftp document directory<br />
+4- /var/log/auth.log    log of login attempts<br />
+<br />
+<br />
+Specific Configuration Tasks<br />
+-----------------------------------------------------------------------<br />
+<br />
+To install the proftpd package<br />
+------------------------------------------------------<br />
+0- su -<br />
+1- apt-get install proftpd<br />
+2- Choose inetd or standalone.<br />
+<br />
+   For low-usage servers, inetd would be appropriate.<br />
+   For high-traffic ftp servers, standalone would be best.<br />
+<br />
+<br />
+To enable anonymous ftp downloads<br />
+------------------------------------------------------<br />
+0- su -<br />
+1- edit /etc/proftpd.conf<br />
+   Uncomment the entire &lt;Anonymous&gt; section of the configuration<br />
+   file.  Do not uncomment the anonymous uploads.<br />
+2- If you are running in standalone mode,<br />
+   /etc/init.d/proftpd restart<br />
+<br />
+  <br />
+To install documents for anonymous downloads<br />
+------------------------------------------------------<br />
+0- su -<br />
+1- cp /some/file /home/ftp<br />
+2- chown -R ftp:nogroup /home/ftp<br />
+<br />
+   Any desired directory structure may be built under the<br />
+   /home/ftp directory.<br />
+<br />
+<br />
+To disable user logins through ftp (for security reasons)<br />
+------------------------------------------------------<br />
+0- su -<br />
+1- edit /etc/proftpd.conf<br />
+   Add these lines, somewhere before the &lt;Anonymous&gt;<br />
+   section of the configuration file.<br />
+=====================================================  <br />
+# Disable user logins<br />
+&lt;Limit LOGIN&gt;<br />
+        DenyUser !ftp<br />
+&lt;/Limit&gt;<br />
+=====================================================  <br />
+     <br />
+2- If you are running in standalone mode,<br />
+   /etc/init.d/proftpd restart<br />
+<br />
+  <br />
+To test the configuration<br />
+--------------------------------------------------<br />
+1- login to a unix computer<br />
+2- ftp ns1.horgoth.com (your host)<br />
+   user: anonymous<br />
+   password: anything<br />
+   ftp&gt; dir<br />
+   ftp&gt; quit<br />
+<br />
+   This should show the available files<br />
+  <br />
+3- ftp ns1.horgoth.com (your host)<br />
+   user: some_user<br />
+   password: correct_password<br />
+<br />
+   This should sat "Login incorrect", even when the<br />
+   password is correct.<br />
+<br />
+4- Use a broswer to visit ftp://ns1.horgoth.com/ as<br />
+   anonymous to view and download files.
+</pre>

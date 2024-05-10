@@ -1,0 +1,29 @@
+Commands
+--------
+chown
+chgrp
+chmod
+  u+rwx
+  g=rx
+  o-w
+  u+s
+  g+s
+  o+t
+groups
+id
+
+finger
+chfn
+chsh
+passwd
+
+adduser
+addgroup
+
+Files
+------
+/etc/shells
+/etc/passwd
+/etc/shadow
+/etc/group
+

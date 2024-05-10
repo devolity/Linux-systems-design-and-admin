@@ -1,0 +1,127 @@
+
+<p><strong>Assignment:</strong>&nbsp;<br />
+Install and configure an email system.</p>
+
+<p><strong>Requirements:</strong>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<ul>
+<li>Install a new system for use as an MTA.</li>
+
+<li>Configure the system to act as the incoming MTA for the
+domain.</li>
+
+<li>Configure the system to act as the outgoing MTA for the local
+network.</li>
+
+<li>Configure the system for remote email reading.</li>
+
+<li>Configure the systems in the local network to relay all email
+through the system.</li>
+</ul>
+
+<p><strong>Install a new system for use as an MTA:</strong>&nbsp;</p>
+
+<ul>
+<li>Create another virtual system and install the server operating
+system.</li>
+</ul>
+
+<p><strong>Configure the system to act as the incoming MTA for the
+domain:</strong>&nbsp;</p>
+
+<ul>
+<li>Configure the <code>exim4</code> software to receive email.</li>
+
+<li>The server should accept email for users at your domain. (e.g.
+<code>user@example.com</code>)</li>
+
+<li>The server should accept email for users at any of the hosts in
+your domain. (e.g. <code>user@mybox.example.com</code>)</li>
+
+<li>The DNS should be configured to direct email for all hosts in your
+domain to this system.</li>
+</ul>
+
+<p><strong>Configure the system to act as the outgoing MTA for the
+local network:</strong>&nbsp;</p>
+
+<ul>
+<li>Configure the <code>exim4</code> software to send email.</li>
+
+<li>Messages sent from the server should appear to come from users at
+your domain. (e.g. <code>user@example.com</code>)</li>
+
+<li>The server should relay email for users at any of the hosts in your
+domain. (e.g. Email from user@mybox.example.com should be relayed to
+its destination.)</li>
+
+<li>The server should send all outgoing email through
+<code>sol.cs.dixie.edu</code>.</li>
+</ul>
+
+<p><strong>Configure the system for remote email
+reading:</strong>&nbsp;</p>
+
+<ul>
+<li>Configure the <code>uw-imapd</code> software to provide IMAP remote
+mail reading.</li>
+
+<li>Only allow connections to IMAP through the encrypted port.</li>
+</ul>
+
+<p><strong>Configure the systems in the local network to relay all
+email through the system:</strong>&nbsp;</p>
+
+<ul>
+<li>On each existing system, configure the <code>exim4</code> software
+to use your MTA as a smarthost.</li>
+
+<li>On each existing system, the MUAs <code>mailx</code> and
+<code>mutt</code> should be installed.</li>
+</ul>
+
+<p><strong>Pass-off Procedure:</strong>&nbsp;</p>
+
+<ul>
+<li>Create a user on each of the systems. Use the same password for
+each system.</li>
+
+<li>Using the CIT submission system, submit a file to IT3100,
+SMTP.</li>
+
+<li>The file should be named <code>smtp_info.txt</code>. This file must
+be a plain text file, with the following format: 
+
+<pre>
+mta: ip_address_of_MTA<br />
+user: user_name_created_for_passoff<br />
+pass: password_for_user<br />
+hosts: ip_address_of_host1, ip_address_of_host2, ...<br />
+domain: name.of.domain
+</pre>
+
+For example, a file may look like this: 
+
+<pre>
+mta: 144.38.212.50<br />
+user: bonzai<br />
+pass: $&amp;^bbi13<br />
+hosts: 144.38.212.48, 144.38.212.49, 144.38.212.50<br />
+domain: horgoth.com
+</pre>
+</li>
+
+<li>Each of ip addresses in the <code>hosts</code> list must have a
+valid reverse DNS entry!</li>
+
+<li>Several email messages will be sent to the user at each of the
+hosts listed.</li>
+
+<li>Several email messages will be sent from the user at each of the
+hosts listed.</li>
+
+<li>Email messages that are not correctly delivered will cause points
+to be deducted from the assignment.</li>
+</ul>

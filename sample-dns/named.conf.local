@@ -1,0 +1,84 @@
+//
+// Do any local configuration here
+//
+
+/*
+ *  This is my domain.  By specifying a zone entry, here, bind will
+ *  act authoritative for this domain.
+ */
+zone "horgoth.com" {
+        // This server holds the master (primary) information
+	type master;
+
+        // This is the file where the domain information is stored
+	file "/etc/bind/db.horgoth.com";
+
+        // All slave (secondary) servers must be listed here to
+        // allow them to transfer a copy of the zone information
+	allow-transfer { 209.33.198.200; localhost; };
+
+	// Tell (notify) all slave (secondary) servers when the
+        // domain information changes
+	notify yes;
+
+        // Allow any IP address to query (ask) about this domain.
+	allow-query { any; };
+};
+
+/*
+ *  This is my partner's domain.  By specifying a zone entry, here, bind will
+ *  act authoritative for this domain.
+ */
+zone "dsctux.net" {
+        // This server holds slave (secondary) information
+        // for this domain.  The information is transfered
+        // from the master server
+	type slave;
+
+        // This information is stored in /var/cache/bind/dsctux.net
+        // The file is created automatically by bind.
+	file "dsctux.net";
+
+        // Transfer the master (primary) information from the
+        // server at this address
+	masters { 209.33.198.200; };
+
+        // Only allow myself to transfer this zone.  This is only
+        // here for debugging purposes
+	allow-transfer { localhost; };
+
+        // Allow any IP address to query (ask) about this domain.
+	allow-query { any; };
+
+	// Do not tell (notify) servers when the
+        // domain information changes
+	notify no;
+};
+
+/*
+ *  This is my domain.  By specifying a zone entry, here, bind will
+ *  act authoritative for this domain.
+ */
+zone "2.212.38.144.in-addr.arpa" {
+        // This server holds the master (primary) information
+	type master;
+
+        // This is the file where the domain information is stored
+	file "/etc/bind/db.2.212.38.144.in-addr.arpa";
+
+        // All slave (secondary) servers must be listed here to
+        // allow them to transfer a copy of the zone information
+	allow-transfer { 209.33.198.200; localhost; };
+
+	// Tell (notify) all slave (secondary) servers when the
+        // domain information changes
+	notify yes;
+
+        // Allow any IP address to query (ask) about this domain.
+	allow-query { any; };
+};
+
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";

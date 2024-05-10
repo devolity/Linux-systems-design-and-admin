@@ -1,0 +1,61 @@
+; Note that the comment character is the semi-colon
+
+;
+; BIND data file for reverse lookup of horgoth.com
+;
+
+; FYI
+;
+;    3600 seconds = 1 hour
+;   86400 seconds = 1 day
+;  604800 seconds = 1 week
+;31449600 seconds = 52 weeks
+
+;
+;  This TTL (time to live) is for all RR (resource records) that do not have
+;    TTL otherwise specified.   The value is in seconds.  If the TTL
+;    is too large, then it takes a long time to get changes into
+;    caching servers.  If it is too small, then the nameserver gets overworked.
+;
+$TTL    3600    ; RR are good for 1 hour
+
+
+;  There must be an SOA for every zone
+;
+;  SOA (Start of Authority) record.
+;    Serial  - number must increase every time you change this file
+;    Refresh - How often the secondary name servers should check
+;              for updated information
+;    Retry   - How often the secondary name servers should retry
+;              a refresh if the refresh is unsuccessful
+;    Expire  - How long the secondary name servers should keep this
+;              information before it is bad.
+;    Minimum/TTL -
+;              How long negative hits should be stored.  This is for
+;              other servers that ask us about a non-existent RR.
+;              They should cache the negative response for this long.
+;              
+@	IN	SOA	ns1.horgoth.com. root.ns1.horgoth.com. (
+		     2005093002		; Serial
+                           3600         ; Refresh   every 1 hour
+                            300         ; Retry     every 5 minutes
+                        7862400         ; Expire    3 months to expire
+                             60 )       ; Negative Cache TTL  1 minute
+
+; 
+; NS (Name Server) records
+;
+@	IN	NS	ns1.horgoth.com.
+@	IN	NS	ns2.horgoth.com.
+
+;
+; PTR (Reverse Address) records
+;
+2	IN	PTR	ns1.horgoth.com.
+3	IN	PTR	fred.horgoth.com.
+4	IN	PTR	wilma.horgoth.com.
+5	IN	PTR	pebbles.horgoth.com.
+6	IN	PTR	barney.horgoth.com.
+7	IN	PTR	betty.horgoth.com.
+8	IN	PTR	bambam.horgoth.com.
+9	IN	PTR	dino.horgoth.com.

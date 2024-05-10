@@ -1,0 +1,93 @@
+
+<pre>
+Installation Packages<br />
+-----------------------------<br />
+- php5-imap<br />
+- Do not use the Ubuntu squirrel mail package.<br />
+ <br />
+Commands of Interest<br />
+-------------------------------<br />
+1- wget           to fetch the source file<br />
+2- tar zxf        to extract the source file<br />
+3- config/conf.pl to configure squirrel mail<br />
+<br />
+Files and Directories<br />
+---------------------<br />
+1- /usr/src/sqm             scratch area to store source files<br />
+2- /var/local/squirrelmail  non-browsable data for squirrel mail<br />
+<br />
+<br />
+Specific Configuration Tasks<br />
+-----------------------------------------------------------------------<br />
+<br />
+To acquire the latest version of squirrel mail sources<br />
+------------------------------------------------------<br />
+0- su -<br />
+1- mkdir /usr/src/sqm<br />
+2- cd /usr/src/sqm<br />
+3- wget URL_FOR_LATEST_SQUIRREL_MAIL_SOURCES<br />
+<br />
+   Obtain the url by visiting http://www.squirrelmail.org/download.php,<br />
+   follow the download instructions, then copy the actual url after<br />
+   going through the sourceforge pages.<br />
+<br />
+   FYI: As of this writing the latest stable version of SM is 1.4.10a.<br />
+        The installation site is https://site1.horgoth.com/<br />
+    The DocumentRoot is /var/www/secure-site1.horgoth.com/<br />
+<br />
+<br />
+To unpack squirrel mail for an individual virtual host<br />
+------------------------------------------------------<br />
+0- su - virtual_host_admin<br />
+1- cd /var/www/secure-site1.horgoth.com<br />
+2- tar jxf /usr/src/sqm/squirrelmail-1.4.10a.tar.bz2<br />
+3- mv squirrelmail-1.4.10a sm<br />
+<br />
+To configure squirrel mail for an individual virtual host<br />
+------------------------------------------------------<br />
+0- su - webadmin<br />
+1- cd /var/www/secure-site1.horgoth.com/sm<br />
+2- Read and follow the instructions in the INSTALL file<br />
+2a- create the user data and attachment directories (see below)<br />
+2b- ./config/conf.pl<br />
+    + Set the user data and attachment directories with menu options<br />
+      4.1 and 4.2<br />
+    + Modify the server settings with main menu option 2.<br />
+      * Option 2.1 to set the email domain name.<br />
+      * Option 2.A.4 to set the IMAP server<br />
+      * Option 2.A.5 to set the IMAP port to 993 (SSL enabled)<br />
+      * Option 2.A.7 to set the IMAP secure to true.<br />
+      * Option 2.B.4 to set the SMTP server<br />
+    + Save the changes with 'S'<br />
+<br />
+<br />
+To create the user data and attachment directories<br />
+--------------------------------------------------<br />
+0- su -<br />
+1- mkdir -p /var/local/sm/site1.horgoth.com/attachment-dir<br />
+2- mkdir -p /var/local/sm/site1.horgoth.com/data-dir<br />
+3- chown root:www-data /var/local/sm/site1.horgoth.com/attachment-dir<br />
+4- chown www-data:www-data /var/local/sm/site1.horgoth.com/data-dir<br />
+5- chmod 0730 /var/local/sm/site1.horgoth.com/attachment-dir<br />
+6- chmod 0755 /var/local/sm/site1.horgoth.com/data-dir<br />
+<br />
+<br />
+To test the configuration<br />
+--------------------------------------------------<br />
+1- Visit https://site1.horgoth.com/sm/src/configtest.php<br />
+   You should find a php configuration that needs to be changed.<br />
+2- Visit https://site1.horgoth.com/sm<br />
+   Login as one of the users.<br />
+   Send and receive email.<br />
+<br />
+<br />
+****************************************************************<br />
+Notes:<br />
+****************************************************************<br />
+  + During use of configtest.php the TLS error can be ignored.<br />
+  + Other menu options may be of interest<br />
+  + This configuration assumes that the SMTP server has already<br />
+    been configured to receive email for the host name in question<br />
+    (site1.horgoth.com).  Also, the DNS configuration must be set<br />
+    up correctly.
+</pre>

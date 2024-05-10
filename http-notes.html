@@ -1,0 +1,142 @@
+
+<pre>
+Installation Packages<br />
+-----------------------------<br />
+1- install package: apache2-mpm-prefork<br />
+<br />
+<br />
+Commands of Interest<br />
+-------------------------------<br />
+1- /etc/init.d/apache2 restart  : restart the server with new configuration<br />
+2- a2ensite site.file.name      : enable a site file<br />
+   a2dissite site.file.name     : disable a site file<br />
+3- a2enmod module name          : enable an available module<br />
+   a2dismod module name         : disable an enabled module<br />
+<br />
+<br />
+Files and Directories<br />
+---------------------<br />
+1- /etc/apache2                : Configuration files<br />
+   /etc/apache2/README         : Documentation of configuration structure<br />
+   /etc/apache2/apache2.conf   : Main configuration file<br />
+   /etc/apache2/conf.d/        : Directory of misc. configurations<br />
+   /etc/apache2/mods-available/: Directory of available modules<br />
+   /etc/apache2/mods-enabled/  : Directory of modules that are in use<br />
+   /etc/apache2/sites-available/: Directory of available virtual hosts<br />
+   /etc/apache2/sites-enabled/  : Directory of virtual hosts that are used<br />
+  <br />
+2- /var/www                    : parent directory for all sites<br />
+   /var/www/domain             : our site DocumentRoot(s)<br />
+<br />
+3- /var/log/apache2            : log file directory<br />
+   /var/log/apache2/error.log  : start/stop/error messages<br />
+   /var/log/apache2/access.log : log of HTTP requests<br />
+<br />
+<br />
+Specific Configuration Tasks<br />
+-----------------------------------------------------------------------<br />
+  <br />
+  <br />
+To allow the documenation to be read from campus<br />
+-----------------------------------------------------------------------<br />
+1- Edit /etc/apache2/conf.d/apache2-doc<br />
+Change this line:<br />
+================FROM======================<br />
+   Allow from  127.0.0.0/255.0.0.0 ::1/128<br />
+=================TO=======================<br />
+   Allow from  127.0.0.0/255.0.0.0 144.38.192.0/255.255.224.0 ::1/128<br />
+==========================================<br />
+2- /etc/init.d/apache2 restart<br />
+<br />
+<br />
+<br />
+To set up organizational websites<br />
+-----------------------------------------------------------------------<br />
+0- su -<br />
+1- cd /etc/apache2/sites-available<br />
+2- edit default, add "ServerName your.server.name" directive to<br />
+   VirtualHost configuration.<br />
+3- edit new.site.file<br />
+This is the site1.horgoth.com site file<br />
+========================================================================<br />
+&lt;VirtualHost *&gt;<br />
+        ServerName horgoth.com<br />
+        ServerAdmin webmaster@horgoth.com<br />
+       <br />
+        DocumentRoot /var/www/site1.horgoth.com<br />
+        &lt;Directory /&gt;<br />
+                Options FollowSymLinks<br />
+                AllowOverride None<br />
+        &lt;/Directory&gt;<br />
+        &lt;Directory /var/www/site1.horgoth.com/&gt;<br />
+                Options Indexes FollowSymLinks MultiViews<br />
+                AllowOverride None<br />
+                Order allow,deny<br />
+                allow from all<br />
+        &lt;/Directory&gt;<br />
+<br />
+        ErrorLog /var/log/apache2/error.log<br />
+<br />
+        # Possible values include: debug, info, notice, warn, error, crit,<br />
+        # alert, emerg.<br />
+        LogLevel warn<br />
+<br />
+        CustomLog /var/log/apache2/access.log combined<br />
+        ServerSignature On<br />
+&lt;/VirtualHost&gt;<br />
+========================================================================<br />
+<br />
+This is the site2.horgoth.com site file<br />
+========================================================================<br />
+&lt;VirtualHost *&gt;<br />
+        ServerName site2.horgoth.com<br />
+        ServerAdmin webmaster@horgoth.com<br />
+       <br />
+        DocumentRoot /var/www/site2.horgoth.com<br />
+        &lt;Directory /&gt;<br />
+                Options FollowSymLinks<br />
+                AllowOverride None<br />
+        &lt;/Directory&gt;<br />
+        &lt;Directory /var/www/site2.horgoth.com/&gt;<br />
+                Options Indexes FollowSymLinks MultiViews<br />
+                AllowOverride None<br />
+                Order allow,deny<br />
+                allow from all<br />
+        &lt;/Directory&gt;<br />
+<br />
+        ErrorLog /var/log/apache2/error.log<br />
+<br />
+        # Possible values include: debug, info, notice, warn, error, crit,<br />
+        # alert, emerg.<br />
+        LogLevel warn<br />
+<br />
+        CustomLog /var/log/apache2/access.log combined<br />
+        ServerSignature On<br />
+&lt;/VirtualHost&gt;<br />
+========================================================================<br />
+4- Enable the new site with<br />
+   a2ensite site1.horgoth.com<br />
+   a2ensite site2.horgoth.com<br />
+5- Make directory for site<br />
+   mkdir /var/www/site1.horgoth.com<br />
+   mkdir /var/www/site2.horgoth.com<br />
+6- If not already defined, add the site name to DNS configuration.<br />
+   The site name must resolve to the IP address of the server.  If<br />
+   www.site.name is desired, these names must also be configured<br />
+   correctly.<br />
+7- /etc/init.d/apache2 restart<br />
+8- Set up content in DocumentRoot<br />
+9- Browse site with<br />
+   http://site1.horgoth.com/document or http://site2.horgoth.com/document<br />
+<br />
+<br />
+To allow more than one DNS entry to be used by each virtual host<br />
+-----------------------------------------------------------------------<br />
+0- su<br />
+1- edit /etc/apache2/sites-available/site.file<br />
+2- add a line after the ServerName configuration:<br />
+========================================================================<br />
+ ServerAlias www.site1.horgoth.com<br />
+========================================================================<br />
+3- /etc/init.d/apache2 restart
+</pre>

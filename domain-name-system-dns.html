@@ -1,0 +1,219 @@
+
+<p><strong>Assignment:</strong>&nbsp;<br />
+Install and configure domain name server software, manage a DNS
+domain.</p>
+
+<p><strong>Requirements:</strong>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<ul>
+<li>Register a domain name with the proper authorities.</li>
+
+<li>Configure primary and secondary authoritative domain name servers
+for a domain.</li>
+
+<li>Configure primary and secondary authoritative domain name servers
+for a reverse lookup zone.</li>
+
+<li>Configure two caching lookup domain name servers.</li>
+
+<li>Correct the hostname, domain, and DNS lookup of all systems.</li>
+
+<li>Write a shell script to verify that DNS is working correctly.</li>
+</ul>
+
+<p><strong>Register a domain name with the proper
+authorities:</strong>&nbsp;</p>
+
+<ul>
+<li>Decide on a domain name, check that it is not used. Repeat until a
+unique domain name has been found.</li>
+
+<li>Register your domain name with a registrar. Many can be found on
+the net. See the links below. You should not pay more than $10 for this
+service. Be sure to accurately fill out the contact information. You
+<em>must</em> put "Curtis Larsen, 225 South 700 East, St. George UT cgl
+at dixie.edu" as the technical contact.</li>
+</ul>
+
+<p><strong>Configure primary and secondary authoritative domain name
+servers for a domain:</strong>&nbsp;</p>
+
+<ul>
+<li>On one system configure the files in <code>/etc/bind/</code> to
+become the primary authoritative server for your domain.</li>
+
+<li>On another system configure the files in <code>/etc/bind/</code> to
+become the secondary authoritative server for your domain.</li>
+
+<li>Verify that your domain name servers are working correctly.</li>
+
+<li>Return to your registrar's configuration site and assign your 
+ systems as the primary and secondary name servers (Note that
+you must first register the systems as a name servers, then assign your
+domain to be served by the name servers.)</li>
+
+<li>Verify that the rest of the domain name system is correctly finding
+your name server. (This may take up to 48 hours.)</li>
+</ul>
+
+<p><strong>Domain Configuration Details:</strong>&nbsp;</p>
+
+<ul>
+<li>Allow hosts from any IP address to lookup information about your
+domain.</li>
+
+<li>Allow your backup name servers to transfer the entire zone.</li>
+
+<li>Automatically notify your backup servers of changes to your
+zone.</li>
+
+<li>Configure names for at least 8 of the IP addresses in your
+control.</li>
+
+<li>Configure aliases so that <code>www, ftp, sql, and mail</code>
+point to hosts in your domain.</li>
+
+<li>It is conventional to configure your name servers with the names
+<code>ns1</code> and <code>ns2</code>.</li>
+</ul>
+
+<p><strong>Configure primary and secondary authoritative domain name
+servers for a reverse lookup zone:</strong>&nbsp;</p>
+
+<ul>
+<li>On one system configure the files in <code>/etc/bind/</code> to
+become the primary authoritative for the reverse lookup of IPs in your
+control. (This is the set of 16 IPs sent to you in your registration
+packet.)</li>
+
+<li>On another system configure the files in <code>/etc/bind/</code> to
+become the secondary authoritative for the reverse lookup of IPs in
+your control. (This is the set of 16 IPs sent to you in your
+registration packet.)</li>
+
+<li>Your reverse zone is <code>aaa-bbb.ccc.38.144.in-addr.arpa.</code>,
+where <code>aaa</code> is the first number in your control, and
+<code>bbb</code> is the last number in your control. <code>ccc</code>
+is 210, 211, or 212 depending on your assigned numbers. For example, my
+zone is <code>48-63.212.38.144.in-addr.arpa.</code>.</li>
+
+<li>Verify that your domain name servers are working correctly.</li>
+
+<li>Submit the full DNS names of your name servers to the reverse zone
+registrar. That is the course instructor. Send the information via
+email to <code>it3100</code> at <code>cs.dixie.edu</code>.</li>
+
+<li>Verify that the rest of the domain name system is correctly finding
+your name server for reverse lookup.</li>
+</ul>
+
+<p><strong>Domain Reverse Details:</strong>&nbsp;</p>
+
+<ul>
+<li>Allow hosts from any IP address to lookup information about your
+reverse domain.</li>
+
+<li>Allow your backup name servers to transfer the entire zone.</li>
+
+<li>Automatically notify your backup servers of changes to your
+zone.</li>
+
+<li>Configure reverse lookup information for each of the IPs used in
+your forward lookup zone. These names should match the <code>A</code>
+records from the forward zone.</li>
+</ul>
+
+<p><strong>Configure two caching lookup domain name
+servers:</strong>&nbsp;</p>
+
+<ul>
+<li>Both of your DNS servers will be used as caching lookup
+servers.</li>
+
+<li>Only allow hosts from <code>144.38.192.0/19</code> to ask for DNS
+lookups.</li>
+
+<li>Limit the cache size to 1 MByte.</li>
+</ul>
+
+<p><strong>Correct the hostname, domain, and DNS lookup of all
+systems:</strong>&nbsp;</p>
+
+<ul>
+<li>Change the <code>/etc</code> configuration files so that the
+operating system knows the correct host and domain names for your
+systems.</li>
+
+<li>Change the <code>/etc</code> configuration files so that your
+systems use your DNS lookup servers first and second. As a third backup
+they may use <code>144.38.192.2</code>.</li>
+
+<li>Change the <code>/etc</code> configuration files so that your
+systems use look for hosts in your domain automatically.</li>
+
+<li>Verify that your configuration changes are working correctly.</li>
+</ul>
+
+<p><strong>Write a shell script to verify that DNS is working
+correctly:</strong>&nbsp;</p>
+
+<ul>
+<li>Write a shell script to verify each of the functions of your DNS
+servers.</li>
+
+<li>The script file shall be named <code>check_dns.bash</code>.</li>
+
+<li>This script should be flexible. This means driven by command line
+parameters, configuration files, or configuration variables at the top
+of the file.</li>
+</ul>
+
+<p><strong>Pass-off Procedure:</strong>&nbsp;</p>
+
+<ul>
+<li>Use the CIT submission system.</li>
+
+<li>Submit <code>check_dns.bash</code>.</li>
+
+<li>Submit a text file named <code>dns_info.txt</code>. This file must
+be a plain text file, with the following format: 
+
+<pre>
+master: ip_address_of_master<br />
+slave: ip_address_of_slave<br />
+domain: name.of.domain
+</pre>
+
+For example, my file would look like this: 
+
+<pre>
+master: 144.38.212.48<br />
+slave: 144.38.212.49<br />
+domain: horgoth.com
+</pre>
+</li>
+</ul>
+
+<p><strong>Links and Help:</strong>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<ul>
+<li>Sample registrars:<br />
+ <a href="http://domains.usbusinesslink.com/" class="text">US Business
+Link</a><br />
+ <a href="http://www.godaddy.com/gdshop/default.asp" class="text">Go
+Daddy</a></li>
+
+<li><a href="http://www.internic.net/whois.html" class="text">InterNic</a></li>
+
+<li>Testing: <code>man dig</code></li>
+
+<li><a href="http://www.dnsreport.com/" class="text">http://www.dnsreport.com/</a></li>
+
+<li>Debugging: <code>less /var/log/daemon.log</code></li>
+
+<li>Configuration Files: <code>/etc/bind</code></li>
+</ul>

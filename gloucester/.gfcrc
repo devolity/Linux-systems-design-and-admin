@@ -1,0 +1,91 @@
+<?php
+
+function gfc_config()
+{
+# edit the configuration information here.
+  $data = array("username" => "PUT_USERNAME_HERE",
+		"password" => "PUT_PASSWORD_HERE",
+		"database" => "PUT_DATABASE_HERE",
+		"hostname" => "localhost",
+		);
+  
+  return $data;
+}
+
+function gfc_mysql_connect()
+{
+  $db_data = gfc_config();
+  $db_conn = mysql_connect($db_data{"hostname"},
+			   $db_data{"username"},
+			   $db_data{"password"});
+  
+  if(!$db_conn)
+    {
+      die("Unable to connect to the database.<br>" . mysql_error());
+    }
+  
+  if(!mysql_select_db($db_data{"database"}, $db_conn))
+    {
+      die("Unable to select the database.<br>" . mysql_error());
+    }
+  
+  return $db_conn;
+}
+
+function gfc_mysql_disconnect($db_conn)
+{
+  mysql_close($db_conn);
+}
+
+function gfc_create_tables($db_conn)
+{
+  $query =
+    "
+CREATE TABLE gfc_favorites
+(
+  url VARCHAR(255) NOT NULL PRIMARY KEY,
+  description TEXT
+)
+";
+  
+  if(!mysql_query($query, $db_conn))
+    {
+      die("Unable to create table.<br>" . mysql_error());
+    }
+}
+
+function gfc_get_favorites($db_conn)
+{
+  $query =
+    "
+SELECT * FROM gfc_favorites
+";
+
+  $db_result = mysql_query($query, $db_conn);
+  if(! $db_result)
+    {
+      die("Unable to query table.<br>" . mysql_error());
+    }
+  $data = array();
+  while($row = mysql_fetch_array($db_result))
+    {
+      array_push($data, $row);
+    }
+  return $data;
+}
+
+function gfc_add_favorite($db_conn, $url, $description)
+{
+  $query =
+    "
+INSERT INTO gfc_favorites (url, description) VALUES ('$url', '$description')
+";
+
+  $db_result = mysql_query($query, $db_conn);
+  if(! $db_result)
+    {
+      die("Unable to insert into table.<br>" . mysql_error());
+    }
+}
+
+?>

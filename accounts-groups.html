@@ -1,0 +1,84 @@
+
+<p><strong>Assignment:</strong>&nbsp;</p>
+
+<p>Often computer systems are used by several different groups of
+users, with varying levels of cooperation between the groups. In this
+assignment you will gain experience in creating users and groups, and
+managing them.</p>
+
+<p><strong>Requirements :</strong></p>
+
+<ul>
+<li>Create the user accounts listed.</li>
+
+<li>Create the user groups listed.</li>
+
+<li>Add the users to groups as listed.</li>
+
+<li>Create the new DNS domains listed.</li>
+
+<li>Configure the MTA to handle the new domains.</li>
+
+<li>Configure the the HTTP server to handle the new domains.</li>
+
+<li>Configure the the HTTPS site to serve web mail access for the new
+domains.</li>
+</ul>
+
+<p><strong>Create the user accounts listed</strong>:<br />
+For each of the users listed, create an account on the web server and
+an account on the email server. The users should have their own unique
+default group, independent of any other group membership. For your
+convenience, only the accounts that are marked need to have passwords
+set. Note that this means the other accounts can not be logged into
+directly.</p>
+
+<p><strong>Create the user groups listed</strong>:<br />
+For each of the groups listed, create a group on the web server.</p>
+
+<p><strong>Add the users to groups as listed</strong>:<br />
+For each user, add the user to the list of groups. Some users may be
+added to more than one group.</p>
+
+<p><strong>Create the new DNS domains listed</strong>:<br />
+For each group, create a new DNS domain. The domain should be
+<code>groupname.yourdomain</code>. Each of these domains should be
+served from your authoratative servers. Each should have its own unique
+zone file. Each should define 'A' records for 'www' and 'mail' that
+point to your webserver and MTA respectively.</p>
+
+<p><strong>Configure the MTA to handle the new domains</strong>:<br />
+The MTA should be configured to accept email destined for the new
+domains and their hostnames created above. DNS should be modified to
+insure that all email is sent to the MTA.</p>
+
+<p><strong>Configure the the HTTP server to handle the new
+domains</strong>:<br />
+For each new domain, create a new virtual host on the web server to
+handle web traffic for the domain. Configure the document root for the
+each new web site so that any member of the group that corresponds to
+the domain can make modifications to the web site. You will probably
+need to add www-data to all of the groups as well.</p>
+
+<p><strong>Configure the the HTTPS site to serve web mail access for
+the new domains</strong>:<br />
+For each of the new domains, install a copy of squirrel mail so that
+users can read and send mail specifically for the new domain. Install
+the squirrel mail in the directory <code>sm-groupname</code> from the
+document root of the secure virtual host.</p>
+
+<p><strong>Notes</strong>:</p>
+
+<ul>
+<li>Download the <a class="text" href="http://cit.cs.dixie.edu/it/it3100/sources/users-f07.csv">user/group
+file</a>.</li>
+
+<li>There are 100 users and 10 groups. That's a lot of typing and typos
+if you process this data by hand. I strongly recommend developing tools
+to automate some of the processing.</li>
+</ul>
+
+<p><strong>Pass-off Procedure:</strong>&nbsp;<br />
+Detailed pass off procedures will be posted soon.</p>
+
+<p>ll be posted soon.</p>

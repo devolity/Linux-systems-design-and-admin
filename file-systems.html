@@ -1,0 +1,106 @@
+
+<p><strong>Requirements:</strong>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<ul>
+<li>Add and configure filesystems on a hard drive.</li>
+
+<li>Measure filesystem performance.</li>
+</ul>
+
+<p><strong>Add and configure filesystems on a hard drive:</strong></p>
+
+<ul>
+<li>Create partition(s) on the hard drive. The partition size must be
+at least 100 MByte.</li>
+
+<li>You will create ext3, vfat, and reiserfs filesystems on the
+partition(s). With a 1 GByte disk, you should be able to keep all 9 of
+the partitions needed for the measurements.</li>
+
+<li>Add /etc/fstab entries for each of the filesystems when their
+configuration has been finalized.</li>
+
+<li>Mount the filesystems, and verify that each filesystem has been
+created and mounted correctly.</li>
+</ul>
+
+<p><strong>Measure filesystem performance:</strong></p>
+
+<ul>
+<li>Create a shell script, or a set of shell scripts, to find the
+largest single file that can fit on a filesystem. This script should
+also measure the amount of the time that it takes to create the
+file.</li>
+
+<li>Create a shell script to find the largest number of small files
+(less than 512 bytes) that can fit on a filesystem. This script should
+also measure the amount of the time that it takes to create the files.
+It is prudent to create a new directory about every 1000 files. You may
+include or exclude the directories from the count of files.</li>
+
+<li>For each of the three filesystem types (ext3, vfat, reiserfs)
+measure the large file size, file count, and times. Repeat these
+measurements for the each filesystem type when configured in three
+ways. The first way is the default configuration. The second way is
+configured to maximize the largest file size, and the third was is to
+maximize the number of small files.</li>
+
+<li>Note that for the many files and largest file, you may need some
+trial and error to find the optimal configuration.</li>
+
+<li>Plot the results in a set of graphs. One graph will show the
+maximal file size for each of the 9 configurations. Another will show
+the maximal number of files for each of the 9 configurations. The other
+2 graphs will show the timing information.</li>
+
+<li>Add the graphs to a report that includes the configuration
+parameters for each of the file system configurations.</li>
+</ul>
+
+<p><strong>Pass-off Procedure:</strong>&nbsp;</p>
+
+<ul>
+<li>Submit the report in pdf form to the submission system.</li>
+
+<li>Submit a text file named <code>fs_info.txt</code> with the
+following format: 
+
+<pre>
+ip:    ip address of machine with extra filesystems.<br />
+default_vfat:  /dev/name/of/default_for_vfat<br />
+big_vfat:  /dev/name/of/big_file_for_vfat<br />
+many_vfat: /dev/name/of/many_files_for_vfat<br />
+default_ext3:  /dev/name/of/default_for_ext3<br />
+big_ext3:  /dev/name/of/big_file_for_ext3<br />
+many_ext3: /dev/name/of/many_files_for_ext3<br />
+default_reiserfs:  /dev/name/of/default_for_reiserfs<br />
+big_reiserfs:  /dev/name/of/big_file_for_reiserfs<br />
+many_reiserfs: /dev/name/of/many_files_for_reiserfs
+</pre>
+</li>
+</ul>
+
+<p><strong>Commands of interest:</strong>&nbsp;</p>
+
+<ul>
+<li><code>cfdisk</code></li>
+
+<li><code>mkfs</code></li>
+
+<li><code>tune2fs -l</code></li>
+
+<li><code>mount</code></li>
+
+<li><code>umount</code></li>
+
+<li><code>df</code></li>
+
+<li><code>ls -l</code></li>
+
+<li><code>du</code></li>
+
+<li><code>dselect</code>(to install <code>dosfstools</code> and
+<code>reiserfsprogs</code>)</li>
+</ul>

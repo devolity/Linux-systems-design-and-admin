@@ -1,0 +1,10 @@
+view external_view {
+
+	match-clients { any; };
+
+	zone "clarsen.it3100.horgoth.com" {
+		type master;
+		file "/etc/bind/db.external.clarsen.it3100.horgoth.com";
+	        allow-query { any; };
+	};
+};
